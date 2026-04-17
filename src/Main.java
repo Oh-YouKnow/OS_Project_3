@@ -2,8 +2,8 @@ public class Main {
     public static void main(String[] args) {
     
         // This is for checking if algorithm for task 1 works or not.
-        // You can change the value and try and see if the algorithm works or not.
-        // Except for RR, timeQuantum's value do not matter. But make sure it is not null.
+        // You can change the values and see if the algorithms work or not.
+        // Except for RR, timeQuantum's value does not matter. But make sure it is not null.
         int algorithmNumber = 4;
         int timeQuantum = 5;
         int[] Task1Input = {algorithmNumber, timeQuantum};
