@@ -1,6 +1,7 @@
 import java.util.concurrent.Semaphore;
 
 public class Task1Task extends Thread {
+    public Semaphore doneSem = new Semaphore(0); //added for task2 dispatcherThread
     int taskId;
     int burstTime;
     int timeSlice;
@@ -27,8 +28,18 @@ public class Task1Task extends Thread {
                         break;
                     }
                 }     
-                // Signal dispatcher that cycle/burst is over
-                Task1Main.dispatcherSem.release();
+                //signal dispatcher that cycle/burst is over (for Task1)
+                try {
+                    Task1Main.dispatcherSem.release();
+                } catch (Exception e) {
+                    // ignore if not used
+                }
+                //signal multi-core dispatcher waiting for this task (for Task2)
+                try {
+                    doneSem.release();
+                } catch (Exception e) {
+                    // ignore
+                }
             }
             finished = true;
         } catch (Exception e) {
