@@ -53,10 +53,10 @@ public class Task1CPU {
         }
         if (!task.finished) {
             System.out.println("------------------------------------------------------------");
-            System.out.println("[CPU] Premption has occured when Task " + task.taskId + " was executing");
+            System.out.println("[Task1CPU] Premption has occured when Task " + task.taskId + " was executing");
         } 
         else {
-            System.out.println("[CPU] Task " + readyQueue.get(taskIndex).taskId + " is completed");
+            System.out.println("[Task1CPU] Task " + readyQueue.get(taskIndex).taskId + " is completed");
         }
     }
     
