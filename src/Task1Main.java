@@ -46,13 +46,13 @@ public class Task1Main {
         while (!readyQueue.isEmpty()) {
             // System.out.println("Dispatcher: I am at line 41."); // Debugging line
             int taskIndex = selectTaskIndex();
-            System.out.println("[Dispatcher] Dispatching Task1Task " + (readyQueue.get(taskIndex)).taskId);
             StringBuilder qb = new StringBuilder();
             qb.append("[Dispatcher] + ReadyQueue: ");
             for (Task1Task qt : Task1Main.readyQueue) {
                 qb.append("(" + qt.taskId + ":" + qt.remainingTime + ") ");
             }
-            System.out.println(qb.toString());            
+            System.out.println(qb.toString());              
+            System.out.println("[Dispatcher] Dispatching Task1Task " + (readyQueue.get(taskIndex)).taskId);          
             Task1CPU.run(readyQueue, algorithmNumber, taskIndex);
             // System.out.println("Dispatcher: I am already at line 48"); // Debugging line
             
