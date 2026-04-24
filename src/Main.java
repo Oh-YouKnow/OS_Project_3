@@ -106,6 +106,10 @@ public class Main {
             int[] Task1Input = {algorithm, quantum};
             Task1Main.task1Main(Task1Input);
         } else {
+            if(algorithm == 4){
+                System.out.println("Multicore does not work implementation for PSJF");
+                return;
+            } 
             int[] Task2Input = {algorithm, quantum, cores};
             Task2Main.task2Main(Task2Input);
         }
