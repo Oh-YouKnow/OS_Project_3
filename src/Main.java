@@ -1,57 +1,113 @@
 public class Main {
     public static void main(String[] args) {
-        // please put this condition
-        // if (timeQuantum == 0 && algorithmNumber == 2) print("timeQuantum cannot be 0");
-        
 
-        
-        // This is for checking if algorithm for task 1 works or not.
-        // You can change the values and see if the algorithms work or not.
-        // Except for RR, timeQuantum's value does not matter. But make sure it is not null.
-        int algorithmNumber = 2;
-        int timeQuantum = 5;
-        int[] Task1Input = {algorithmNumber, timeQuantum};
-        
-        // For FCFS
-        // int[] Task1Input = { algorithmNumber, 0 };
-        
-        //For RR
-        // int[] Task1Input = { algorithmNumber, timeQuantum};
-        
-        //  For NSJF
-        // int[] Task1Input = { algorithmNumber, 0 };
-        
-        // For PSJF
-        // int[] Task1Input = { algorithmNumber, 0 };
-        
-        Task1Main.task1Main(Task1Input);
-        
-        
-        
-        /*
+        if (args.length == 0) {
+            System.out.println("Usage: -S <algorithm> [quantum] [-C <cores>]");
+            return;
+        }
 
-        // Algorithms for Task 2
-        //change values for algorithmNumber, timeQuantum, and cores
+        int algorithm = -1;
+        int quantum = 0;
+        int cores = 1; // default
+        boolean foundS = false;
 
-        int algorithmNumber = 2; // 1: FCFS, 2: RR, 3:NSJF
-        int timeQuantum = 1;
-        int cores = 4; // 1-4 cores
+        int i = 0;
 
-        int[] Task2Input = {algorithmNumber, timeQuantum, cores};
+        while (i < args.length) {
 
-        // For FCFS
-        // int[] Task2Input = { algorithmNumber, 0, cores };
+            switch (args[i]) {
 
-        // For RR
-        // int[] Task2Input = { algorithmNumber, timeQuantum, cores };
+                case "-S":
+                    foundS = true;
+                    i++;
 
-        // For NSJF
-        // int[] Task2Input = { algorithmNumber, 0, cores };
+                    if (i >= args.length) {
+                        System.out.println("Missing algorithm number after -S");
+                        return;
+                    }
 
+                    try {
+                        algorithm = Integer.parseInt(args[i]);
+                    } catch (Exception e) {
+                        System.out.println("Missing algorithm number after -S");
+                        return;
+                    }
+                    
 
-        Task2Main.task2Main(Task2Input);
+                    if (algorithm < 1 || algorithm > 4) {
+                        System.out.println("Algorithm must be between 1 and 4");
+                        return;
+                    }
 
-        */
+                    i++;
 
+                    // Round Robin needs quantum
+                    if (algorithm == 2) {
+                        if (i >= args.length) {
+                            System.out.println("Round Robin requires time quantum");
+                            return;
+                        }
+
+                        try {
+                            quantum = Integer.parseInt(args[i]);
+                        } catch (Exception e) {
+                            System.out.println("Round Robin requires time quantum");
+                            return;
+                        }
+
+                        if (quantum < 2 || quantum > 10) {
+                            System.out.println("Time quantum must be between 2 and 10");
+                            return;
+                        }
+
+                        i++;
+                    }
+
+                    break;
+
+                case "-C":
+                    i++;
+
+                    if (i >= args.length) {
+                        System.out.println("Missing core number after -C");
+                        return;
+                    }
+
+                    cores = Integer.parseInt(args[i]);
+
+                    try {
+                        cores = Integer.parseInt(args[i]);
+                    } catch (Exception e) {
+                        System.out.println("Missing core number after -C");
+                        return;
+                    }
+
+                    if (cores < 1 || cores > 4) {
+                        System.out.println("Cores must be between 1 and 4");
+                        return;
+                    }
+
+                    i++;
+                    break;
+
+                default:
+                    System.out.println("Unknown argument: " + args[i]);
+                    return;
+            }
+        }
+
+        if (!foundS) {
+            System.out.println("-S argument is required");
+            return;
+        }
+
+        // Task selection
+        if (cores == 1) {
+            int[] Task1Input = {algorithm, quantum};
+            Task1Main.task1Main(Task1Input);
+        } else {
+            int[] Task2Input = {algorithm, quantum, cores};
+            Task2Main.task2Main(Task2Input);
+        }
     }
 }
